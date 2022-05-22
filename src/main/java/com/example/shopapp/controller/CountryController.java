@@ -40,6 +40,7 @@ public class CountryController {
 
         if(country != null) {
             country.setName(updatedCountry.getName());
+            country.setContinent(updatedCountry.getContinent());
             return 1;
         } else {
             return -1;
@@ -52,6 +53,7 @@ public class CountryController {
 
         if(country != null) {
             if (updatedCountry.getName() != null) country.setName(updatedCountry.getName());
+            if (updatedCountry.getContinent() != null) country.setContinent(updatedCountry.getContinent());
 
             countryService.update(country);
 

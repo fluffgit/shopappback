@@ -13,7 +13,7 @@ public class CountryService {
     JdbcTemplate jdbcTemplate;
 
     public List<Country> findAll(){
-        return  jdbcTemplate.query("SELECT id, name_cuntry FROM country", BeanPropertyRowMapper.newInstance(Country.class));
+        return  jdbcTemplate.query("SELECT id, name_cuntry, continent_id FROM country", BeanPropertyRowMapper.newInstance(Country.class));
     }
 
     public List<Country> getReferenceById(Long id){
@@ -27,13 +27,14 @@ public class CountryService {
     }
 
     public int save(List<Country> countries){
-        countries.forEach(country -> jdbcTemplate.update("INSERT INTO countries(name_country) VALUES(?) ",
-                country.getName()));
+        countries.forEach(country -> jdbcTemplate.update("INSERT INTO countries(name_country, continent_id) VALUES(?, ?) ",
+                country.getName(), country.getContinent()));
         return 1;
     }
 
     public int update(Country country){
-        return jdbcTemplate.update("UPDATE country SET name_country, WHERE id = ?",country.getName(), country.getId());
+        return jdbcTemplate.update("UPDATE country SET name_country = ?, continent_id = ? WHERE id = ?", country.getName(),
+                country.getContinent(), country.getId());
     }
 
     public int delete(Long id){

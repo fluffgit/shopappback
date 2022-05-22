@@ -5,17 +5,17 @@ import lombok.Data;
 import javax.persistence.*;
 
 @Entity
-@Table(name="country")
+@Table(name="airport")
 @Data
-public class Country {
+public class Airport {
 
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     @Column(name="id")
     private Long id;
-    @Column(name="name_country")
+    @Column(name="name_airport")
     private String name;
     @OneToOne
-    @JoinColumn(name = "continent_id")
-    private Continent continent;
+    @JoinColumn(name="city_id")
+    private City city;
 }

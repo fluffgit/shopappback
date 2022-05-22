@@ -35,7 +35,7 @@ public class ContinentService {
     }
 
     public int update(Continent continent){
-        return jdbcTemplate.update("UPDATE continent SET name_continent, WHERE id = ?",continent.getName(), continent.getId());
+        return jdbcTemplate.update("UPDATE continent SET name_continent = ? WHERE id = ?",continent.getName(), continent.getId());
     }
 
     public int delete(Long id){
