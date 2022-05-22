@@ -1,7 +1,6 @@
 package com.example.shopapp.controller;
 
 import com.example.shopapp.entity.Airport;
-import com.example.shopapp.entity.City;
 import com.example.shopapp.service.AirportService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
