@@ -1,13 +1,11 @@
 package com.example.shopapp.controller;
 
-import com.example.shopapp.dto.AirportDto;
 import com.example.shopapp.entity.Airport;
 import com.example.shopapp.service.AirportService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/airports")

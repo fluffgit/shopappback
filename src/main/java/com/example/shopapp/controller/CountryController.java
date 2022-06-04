@@ -1,6 +1,5 @@
 package com.example.shopapp.controller;
 
-import com.example.shopapp.dto.CountryReadDto;
 import com.example.shopapp.entity.Continent;
 import com.example.shopapp.entity.Country;
 import com.example.shopapp.service.CountryService;

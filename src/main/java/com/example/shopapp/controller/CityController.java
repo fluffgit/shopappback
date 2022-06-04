@@ -1,9 +1,6 @@
 package com.example.shopapp.controller;
 
 import com.example.shopapp.dto.CityDto;
-import com.example.shopapp.dto.CityReadDto;
-import com.example.shopapp.dto.CountryReadDto;
-import com.example.shopapp.dto.HotelDto;
 import com.example.shopapp.entity.City;
 import com.example.shopapp.service.CityService;
 
@@ -11,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/cities")
