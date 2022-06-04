@@ -1,5 +1,9 @@
 package com.example.shopapp.controller;
 
+import com.example.shopapp.dto.CityDto;
+import com.example.shopapp.dto.CityReadDto;
+import com.example.shopapp.dto.CountryReadDto;
+import com.example.shopapp.dto.HotelDto;
 import com.example.shopapp.entity.City;
 import com.example.shopapp.service.CityService;
 
@@ -7,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/cities")
@@ -17,55 +22,24 @@ public class CityController {
 
     @GetMapping("")
     public List<City> getAll(){
-        return cityService.findAll();
-    }
+        return cityService.findAll(); }
 
     @GetMapping("/{id}")
-    public City getById(@PathVariable("id") long id){
-        return (City) cityService.getReferenceById(id);
-    }
-
-    @GetMapping("/{name_city}")
-    public City getByName(@PathVariable("name_city") String name_city){
-        return (City) cityService.getReferenceByName(name_city);
-    }
+    public List<City> getById(@PathVariable("id") long id){
+        return cityService.getReferenceById(id); }
 
     @PostMapping("")
-    public int add(@RequestBody List<City> cities){
-        return cityService.save(cities);
+    public City add(@RequestBody City newCity){
+        return cityService.save(City.builder().name(newCity.getName()).build());
     }
 
     @PutMapping("/{id}")
-    public int update(@PathVariable("id") Long id, @RequestBody City updatedCity){
-        City city = (City) cityService.getReferenceById(id);
-
-        if(city != null) {
-            city.setName(updatedCity.getName());
-            city.setCountry(updatedCity.getCountry());
-            return 1;
-        } else {
-            return -1;
-        }
-    }
-
-    @PatchMapping("/{id}")
-    public int partiallyUpdate(@PathVariable("id") long id, @RequestBody City updatedCity){
-        City city = (City) cityService.getReferenceById(id);
-
-        if(city != null) {
-            if (updatedCity.getName() != null) city.setName(updatedCity.getName());
-            if (updatedCity.getCountry() != null) city.setCountry(updatedCity.getCountry());
-
-            cityService.update(city);
-
-            return 1;
-        } else {
-            return -1;
-        }
+    public void update(@PathVariable("id") long id, @RequestBody CityDto city){
+        cityService.save(City.builder().id(id).name(city.getName()).build());
     }
 
     @DeleteMapping("/{id}")
-    public int delete(@PathVariable("id") long id){
-        return cityService.delete(id);
+    public void delete(@PathVariable("id") long id){
+        cityService.delete(id);
     }
 }

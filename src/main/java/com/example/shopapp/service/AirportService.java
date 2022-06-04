@@ -1,43 +1,30 @@
 package com.example.shopapp.service;
 
-import com.example.shopapp.entity.Airport;
-import org.springframework.jdbc.core.BeanPropertyRowMapper;
-import org.springframework.jdbc.core.JdbcTemplate;
+import com.example.shopapp.dao.AirportRepository;
+import com.example.shopapp.entity.Airport;;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class AirportService {
 
-    JdbcTemplate jdbcTemplate;
+    @Autowired
+    private AirportRepository airportRepository;
 
-    public List<Airport> findAll() {
-        return jdbcTemplate.query("SELECT id, name_airport, city_id FROM airport", BeanPropertyRowMapper.newInstance(Airport.class));
-    }
+    public List<Airport> findAll() { return airportRepository.findAll(); }
 
     public List<Airport> getReferenceById(Long id) {
-        return jdbcTemplate.query("SELECT name_airport FROM airport WHERE" + "id = ?", BeanPropertyRowMapper.
-                newInstance(Airport.class), id);
+        return airportRepository.findById(id).stream().collect(Collectors.toList());
     }
 
-    public List<Airport> getReferenceByName(String name) {
-        return jdbcTemplate.query("SELECT name_airport FROM airport WHERE" + "name = ?", BeanPropertyRowMapper.
-                newInstance(Airport.class), name);
+    public Airport save(Airport airport) {
+        return airportRepository.save(airport);
     }
 
-    public int save(List<Airport> airports){
-        airports.forEach(airport -> jdbcTemplate.update("INSERT INTO airports(name_airport, city_id) VALUES(?, ?) ",
-                airport.getName(), airport.getCity()));
-        return 1;
-    }
-
-    public int update(Airport airport){
-        return jdbcTemplate.update("UPDATE airport SET name_airport = ?, city_id = ? WHERE id = ?", airport.getName(),
-                airport.getCity(), airport.getId());
-    }
-
-    public int delete(Long id){
-        return jdbcTemplate.update("DELETE  FROM airport WHERE id = ?", id);
+    public Airport delete(Long id) { airportRepository.deleteById(id);
+        return null;
     }
 }

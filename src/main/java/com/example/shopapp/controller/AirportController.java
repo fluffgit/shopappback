@@ -1,14 +1,16 @@
 package com.example.shopapp.controller;
 
+import com.example.shopapp.dto.AirportDto;
 import com.example.shopapp.entity.Airport;
 import com.example.shopapp.service.AirportService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
-@RequestMapping("/airport")
+@RequestMapping("/airports")
 public class AirportController {
 
     @Autowired
@@ -16,55 +18,24 @@ public class AirportController {
 
     @GetMapping("")
     public List<Airport> getAll(){
-        return airportService.findAll();
-    }
+        return airportService.findAll(); }
 
     @GetMapping("/{id}")
-    public Airport getById(@PathVariable("id") long id){
-        return (Airport) airportService.getReferenceById(id);
-    }
-
-    @GetMapping("/{name_airport}")
-    public Airport getByName(@PathVariable("name_airport") String name_aiport){
-        return (Airport) airportService.getReferenceByName(name_aiport);
-    }
+    public List<Airport> getById(@PathVariable("id") long id){
+        return airportService.getReferenceById(id); }
 
     @PostMapping("")
-    public int add(@RequestBody List<Airport> airports){
-        return airportService.save(airports);
+    public Airport add(@RequestBody Airport newAirport){
+        return airportService.save(Airport.builder().id(null).name(newAirport.getName()).build());
     }
 
     @PutMapping("/{id}")
-    public int update(@PathVariable("id") Long id, @RequestBody Airport updatedAirport){
-        Airport airport = (Airport) airportService.getReferenceById(id);
-
-        if(airport != null) {
-            airport.setName(updatedAirport.getName());
-            airport.setCity(updatedAirport.getCity());
-            return 1;
-        } else {
-            return -1;
-        }
-    }
-
-    @PatchMapping("/{id}")
-    public int partiallyUpdate(@PathVariable("id") long id, @RequestBody Airport updatedairport){
-        Airport airport = (Airport) airportService.getReferenceById(id);
-
-        if(airport != null) {
-            if (updatedairport.getName() != null) airport.setName(updatedairport.getName());
-            if (updatedairport.getCity() != null) airport.setCity(updatedairport.getCity());
-
-            airportService.update(airport);
-
-            return 1;
-        } else {
-            return -1;
-        }
+    public void update(@PathVariable("id") long id, @RequestBody Airport airport){
+        airportService.save(Airport.builder().id(id).name(airport.getName()).build());
     }
 
     @DeleteMapping("/{id}")
-    public int delete(@PathVariable("id") long id){
-        return airportService.delete(id);
+    public void delete(@PathVariable("id") long id){
+        airportService.delete(id);
     }
 }

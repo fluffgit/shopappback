@@ -1,12 +1,16 @@
 package com.example.shopapp.entity;
 
-import lombok.Data;
+import lombok.*;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name="country")
+@NoArgsConstructor
+@AllArgsConstructor
 @Data
+@Builder
 public class Country {
 
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -15,7 +19,10 @@ public class Country {
     private Long id;
     @Column(name="name_country")
     private String name;
-    @OneToOne
+    @ManyToOne (fetch = FetchType.LAZY)
     @JoinColumn(name = "continent_id")
     private Continent continent;
+    @OneToMany(mappedBy = "country")
+    private List<City> cities;
+
 }

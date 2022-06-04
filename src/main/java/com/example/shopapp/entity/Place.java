@@ -1,31 +1,29 @@
 package com.example.shopapp.entity;
 
-
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
-@Table(name="hotel")
+@Table(name="place")
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
 @Builder
-public class Hotel {
+public class Place {
 
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     @Column(name="id")
     private Long id;
-    @Column(name="name_hotel")
-    private String name;
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name="city_id")
-    private City city;
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "place_id")
-    private Place place;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "place")
+    private List<City> cities;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "place")
+    private List<Hotel> hotels;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "place")
+    private List<Airport> airports;
 }
