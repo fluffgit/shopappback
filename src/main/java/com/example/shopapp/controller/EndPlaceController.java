@@ -38,7 +38,7 @@ public class EndPlaceController {
                         .map(airport -> AirportDto.builder().id(airport.getId()).name(airport.getName()).build()
                         ).collect(Collectors.toList())).build()).collect(Collectors.toList()); }
 
-    @PostMapping("/{id}/continent")
+    @PostMapping("")
     public Place add(@PathVariable("id") long id, @RequestBody EndPlaceDto endplaceDto){
         return endPlaceService.save(Place.builder().id(null).build());
     }

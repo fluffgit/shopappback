@@ -23,7 +23,7 @@ public class CountryController {
     public List<Country> getById(@PathVariable("id") long id){
         return countryService.getReferenceById(id); }
 
-    @PostMapping("/")
+    @PostMapping("")
     public Country add(@RequestBody Country newcountry, @RequestBody Continent continent){
         Country country = new Country(null, newcountry.getName(), Continent.builder()
                 .id(continent.getId()).name(continent.getName()).build(), null);

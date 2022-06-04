@@ -21,20 +21,30 @@ public class Product {
     @ManyToOne
     @JoinColumn(name = "category_id", nullable = false)
     private ProductCategory category;
-    @Column(name="sku")
-    private String sku;
-    @Column(name="name")
-    private String name;
-    @Column(name="description")
-    private String description;
-    @Column(name="unit_price")
-    private BigDecimal unitPrice;
-    @Column(name="image_url")
-    private String imageUrl;
-    @Column(name="active")
-    private boolean active;
-    @Column(name="units_in_stock")
-    private int unitsInStock;
+    @OneToOne
+    @JoinColumn(name="startPlaceDto")
+    private Place startPlaceDto;
+    @OneToOne
+    @JoinColumn(name="endPlaceDto")
+    private Place endPlaceDto;
+    @Column(name="date_start")
+    private Date dateStart;
+    @Column(name="last_end")
+    private Date lastEnd;
+    @Column(name="days")
+    private int days;
+    @Column(name="travel_type")
+    private TravelType travelType;
+    @Column(name="unit_price_child")
+    private BigDecimal unitPriceChild;
+    @Column(name="unit_price_person")
+    private BigDecimal unitPricePerson;
+    @Column(name="special_offer")
+    private boolean specialOffer;
+    @Column(name="prize_for-child")
+    private double prizeForChild;
+    @Column(name="prize_for-person")
+    private double prizeForPerson;
     @Column(name="date_created")
     @CreationTimestamp
     private Date dateCreated;
