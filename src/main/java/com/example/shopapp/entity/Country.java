@@ -3,14 +3,10 @@ package com.example.shopapp.entity;
 import lombok.*;
 
 import javax.persistence.*;
-import java.util.List;
+import java.util.Set;
 
-@Entity
-@Table(name="country")
-@NoArgsConstructor
-@AllArgsConstructor
+@Entity(name="country")
 @Data
-@Builder
 public class Country {
 
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -19,10 +15,12 @@ public class Country {
     private Long id;
     @Column(name="name_country")
     private String name;
-    @ManyToOne (fetch = FetchType.LAZY)
-    @JoinColumn(name = "continent_id")
+
+    @Column(name="name_continent")
+    @Enumerated(EnumType.STRING)
     private Continent continent;
+
     @OneToMany(mappedBy = "country")
-    private List<City> cities;
+    private Set<City> cities;
 
 }

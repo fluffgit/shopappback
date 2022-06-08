@@ -2,6 +2,8 @@ package com.example.shopapp.entity;
 
 
     public enum TravelType {
+
+
         BB("(bed & breakfast) – samo śniadanie"),
         HB("(half board) – śniadanie i obiadokolacja"),
         FB("(full board) – pełne wyżywienie, które obejmuje śniadanie, obiad, kolację"),
@@ -13,6 +15,5 @@ package com.example.shopapp.entity;
 
         TravelType(String description) {
         }
-
     }
 

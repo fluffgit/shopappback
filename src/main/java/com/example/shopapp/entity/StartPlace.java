@@ -1,26 +1,27 @@
 package com.example.shopapp.entity;
 
-
 import lombok.Data;
 
 import javax.persistence.*;
 import java.util.Set;
 
-@Entity(name="hotel")
+@Entity(name="startplace")
 @Data
-public class Hotel {
+public class StartPlace {
 
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
-    @Column(name = "id")
+    @Column(name="id")
     private Long id;
-    @Column(name="name_hotel")
-    private String name;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="name_city", referencedColumnName = "id")
     private City city;
 
-    @OneToMany(fetch = FetchType.LAZY)
-    private Set<EndPlace> endPlaces;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name="name_airport", referencedColumnName = "id")
+    private Airport airport;
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "startPlace")
+    private Set<Product> startList;
 }

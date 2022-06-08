@@ -1,28 +1,15 @@
 package com.example.shopapp.entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
 
-import javax.persistence.*;
-import java.util.List;
+public enum Continent {
 
-@Entity
-@Table(name="continent")
-@NoArgsConstructor
-@AllArgsConstructor
-@Data
-@Builder
-public class Continent {
+    EUROPE("Europa"),
+    ASIA("Azja"),
+    AFRICA("Afryka"),
+    NORTH_AMERICA("Ameryka Płn."),
+    SOUTH_AMERICA("Ameryka Płd."),
+    AUSTRALIA_AND_OCEANIA("Australia i Oceania");
 
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Id
-    @Column(name="id")
-    private Long id;
-    @Column(name="name_continent")
-    private String name;
-    @OneToMany(mappedBy = "continent")
-    private List<Country> countries;
-
+    Continent(String description) {
+    }
 }

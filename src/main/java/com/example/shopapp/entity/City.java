@@ -1,19 +1,12 @@
 package com.example.shopapp.entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.util.List;
+import java.util.Set;
 
-@Entity
-@Table(name="city")
-@NoArgsConstructor
-@AllArgsConstructor
+@Entity(name="city")
 @Data
-@Builder
 public class City {
 
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -22,15 +15,20 @@ public class City {
     private Long id;
     @Column(name="name_city")
     private String name;
+
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "country_id")
+    @JoinColumn(name = "name_country", referencedColumnName = "id")
     private Country country;
-    @OneToOne
-    @JoinColumn(name = "airport_id")
+
+    @OneToOne(mappedBy = "city")
     private Airport airport;
+
     @OneToMany(mappedBy = "city")
-    private List<Hotel> hotels;
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "place_id")
-    private Place place;
+    private Set<Hotel> hotels;
+
+    @OneToMany(fetch = FetchType.LAZY)
+    private Set<EndPlace> endPlaces;
+
+    @OneToMany(fetch = FetchType.LAZY)
+    private Set<StartPlace> startPlaces;
 }

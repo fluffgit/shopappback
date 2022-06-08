@@ -9,42 +9,42 @@ import javax.persistence.*;
 import java.math.BigDecimal;
 import java.util.Date;
 
-@Entity
-@Table(name="product")
+@Entity(name="product")
 @Data
 public class Product {
 
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
-    @Column(name="id")
+    @Column(name = "id")
     private Long id;
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "category_id", nullable = false)
     private ProductCategory category;
-    @OneToOne
-    @JoinColumn(name="startPlaceDto")
-    private Place startPlaceDto;
-    @OneToOne
-    @JoinColumn(name="endPlaceDto")
-    private Place endPlaceDto;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name="startplace_id")
+    private StartPlace startPlace;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name="endplace_id")
+    private EndPlace endPlace;
     @Column(name="date_start")
     private Date dateStart;
-    @Column(name="last_end")
+    @Column(name="date_end")
     private Date lastEnd;
     @Column(name="days")
     private int days;
     @Column(name="travel_type")
-    private TravelType travelType;
-    @Column(name="unit_price_child")
-    private BigDecimal unitPriceChild;
-    @Column(name="unit_price_person")
-    private BigDecimal unitPricePerson;
+    @Enumerated(EnumType.STRING)
+    private TravelType travelTypes;
+    @Column(name="unit_child")
+    private int unitChild;
+    @Column(name="unit_person")
+    private int unitPerson;
     @Column(name="special_offer")
     private boolean specialOffer;
-    @Column(name="prize_for-child")
-    private double prizeForChild;
-    @Column(name="prize_for-person")
-    private double prizeForPerson;
+    @Column(name="price_for_child")
+    private BigDecimal priceForChild;
+    @Column(name="price_for_person")
+    private BigDecimal priceForPerson;
     @Column(name="date_created")
     @CreationTimestamp
     private Date dateCreated;
